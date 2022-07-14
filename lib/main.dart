@@ -2,6 +2,8 @@ import "package:flutter/material.dart";
 import 'package:get/get.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:localstore/localstore.dart';
+import 'package:sushi_supervise/src/views/ui/Login.dart';
+import 'package:sushi_supervise/src/views/util/Header/HeaderTitle.dart';
 import 'ScoutingLib/logic/data/ConfigFileReader.dart';
 import 'ScoutingLib/logic/data/ScoutingData.dart';
 import 'ScoutingLib/logic/size/ScreenSize.dart';
@@ -55,8 +57,17 @@ class SushiSupervise extends StatefulWidget {
 class _SushiSuperviseState extends State<SushiSupervise> {
   @override
   Widget build(BuildContext context) {
-    return (Center(
-      child: Text("Yo"),
-    ));
+    ScreenSize.width = MediaQuery.of(context).size.width;
+    ScreenSize.height = MediaQuery.of(context).size.height;
+    return SizedBox(
+      height: ScreenSize.height,
+      width: ScreenSize.width,
+      child: ListView(
+        children: const [
+          HeaderTitle(),
+          Login(),
+        ],
+      ),
+    );
   }
 }
