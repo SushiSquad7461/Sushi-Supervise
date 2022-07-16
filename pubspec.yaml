@@ -38,6 +38,7 @@ dependencies:
   crypto: ^3.0.2
   localstore: ^1.2.3
   flutter_svg: ^1.1.1+1
+  google_fonts: ^3.0.1
 
 dev_dependencies:
   flutter_test:
