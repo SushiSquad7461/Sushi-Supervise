@@ -1,8 +1,11 @@
 import "package:flutter/material.dart";
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:localstore/localstore.dart';
+import 'package:sushi_supervise/src/logic/enums/Pages.dart';
 import 'package:sushi_supervise/src/views/ui/Login.dart';
+import 'package:sushi_supervise/src/views/util/Header/HeaderNav.dart';
 import 'package:sushi_supervise/src/views/util/Header/HeaderTitle.dart';
 import 'ScoutingLib/logic/data/ConfigFileReader.dart';
 import 'ScoutingLib/logic/data/ScoutingData.dart';
@@ -55,6 +58,18 @@ class SushiSupervise extends StatefulWidget {
 }
 
 class _SushiSuperviseState extends State<SushiSupervise> {
+  Pages currPage = Pages.Upload;
+
+  void setPage(NavPages nextPage) {
+    for (var value in Pages.values) {
+      if (value.toString().split(".")[1] == nextPage.toString().split(".")[1]) {
+        setState(() {
+          currPage = value;
+        });
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     ScreenSize.width = MediaQuery.of(context).size.width;
@@ -62,10 +77,37 @@ class _SushiSuperviseState extends State<SushiSupervise> {
     return SizedBox(
       height: ScreenSize.height,
       width: ScreenSize.width,
-      child: ListView(
-        children: const [
-          HeaderTitle(),
-          Login(),
+      child: Column(
+        children: [
+          const HeaderTitle(),
+          if (isPageInNav(currPage)) HeaderNav(changePage: setPage, currPage: currPage,),
+          SizedBox(
+            width: ScreenSize.width,
+            height: ScreenSize.height * (isPageInNav(currPage) ? 0.61 : 0.9),
+            child: Navigator(
+              pages: [
+                if (currPage == Pages.Login) MaterialPage(child: Login(changePage: setPage))
+                else if (currPage == Pages.Upload) MaterialPage(child: Text("yo"))
+                else MaterialPage(child: Text("asd"))
+              ],
+              onPopPage: (route, result) {
+                return route.didPop(result);
+              },
+            ),
+          ),
+          if (isPageInNav(currPage)) 
+            SizedBox(
+              height: ScreenSize.height * 0.19,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Image.asset(
+                    "./assets/images/footer.png",
+                    scale: ScreenSize.width * 0.001,
+                  ),
+                ],
+              ),
+            ),
         ],
       ),
     );

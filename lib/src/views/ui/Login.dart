@@ -5,9 +5,11 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:sushi_supervise/ScoutingLib/logic/size/ScreenSize.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:sushi_supervise/src/logic/enums/Pages.dart';
 
 class Login extends StatefulWidget {
-  const Login({Key? key}) : super(key: key);
+  final Function(NavPages newPage) changePage;
+  const Login({Key? key, required this.changePage}) : super(key: key);
 
   @override
   State<Login> createState() => _LoginState();
@@ -27,7 +29,8 @@ class _LoginState extends State<Login> {
       height: ScreenSize.height * 0.9,
       child: Column(children: [
         Padding(
-          padding: EdgeInsets.only(top: ScreenSize.height * 0.08, bottom: ScreenSize.height * 0.05),
+          padding: EdgeInsets.only(
+              top: ScreenSize.height * 0.09, bottom: ScreenSize.height * 0.05),
           child: SizedBox(
             width: ScreenSize.width,
             height: ScreenSize.height * 0.47,
@@ -144,32 +147,35 @@ class _LoginState extends State<Login> {
         ),
         SizedBox(
           width: ScreenSize.width,
-          height: ScreenSize.height * 0.3,
+          height: ScreenSize.height * 0.29,
           child: Stack(
             children: [
               SvgPicture.asset(
                 "./assets/images/banner.svg",
                 width: ScreenSize.width,
               ),
-              if (teamNum != null && eventCode != null && password != null) Padding(
-                padding: EdgeInsets.only(top: ScreenSize.height * 0.185),
-                child: Container(
-                    width: ScreenSize.width,
-                    decoration: BoxDecoration(
-                      color: colors.primaryColorDark,
-                    ),
-                    child: TextButton(
-                      onPressed: () => {print("YO")},
-                      child: Text(
-                        'GO',
-                        style: TextStyle(
-                            fontSize: 35 * ScreenSize.swu,
-                            fontFamily: "Sushi",
-                            color: colors.primaryColor,
-                            fontWeight: FontWeight.bold),
+              if (teamNum != null && eventCode != null && password != null)
+                Padding(
+                  padding: EdgeInsets.only(top: ScreenSize.height * 0.185),
+                  child: Container(
+                      width: ScreenSize.width,
+                      decoration: BoxDecoration(
+                        color: colors.primaryColorDark,
                       ),
-                    )),
-              ),
+                      child: TextButton(
+                        onPressed: () => {
+                          widget.changePage(NavPages.Upload)
+                        },
+                        child: Text(
+                          'GO',
+                          style: TextStyle(
+                              fontSize: 35 * ScreenSize.swu,
+                              fontFamily: "Sushi",
+                              color: colors.primaryColor,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      )),
+                ),
             ],
           ),
         )
