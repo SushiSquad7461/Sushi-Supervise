@@ -7,8 +7,6 @@ import 'package:sushi_supervise/src/logic/enums/Pages.dart';
 import 'package:sushi_supervise/src/views/ui/Login.dart';
 import 'package:sushi_supervise/src/views/util/Header/HeaderNav.dart';
 import 'package:sushi_supervise/src/views/util/Header/HeaderTitle.dart';
-import 'ScoutingLib/logic/data/ConfigFileReader.dart';
-import 'ScoutingLib/logic/data/ScoutingData.dart';
 import 'ScoutingLib/logic/size/ScreenSize.dart';
 
 void main() {
