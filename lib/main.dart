@@ -5,6 +5,7 @@ import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:localstore/localstore.dart';
 import 'package:sushi_supervise/src/logic/enums/Pages.dart';
 import 'package:sushi_supervise/src/views/ui/Login.dart';
+import 'package:sushi_supervise/src/views/ui/Upload.dart';
 import 'package:sushi_supervise/src/views/util/Header/HeaderNav.dart';
 import 'package:sushi_supervise/src/views/util/Header/HeaderTitle.dart';
 import 'ScoutingLib/logic/size/ScreenSize.dart';
@@ -85,7 +86,7 @@ class _SushiSuperviseState extends State<SushiSupervise> {
             child: Navigator(
               pages: [
                 if (currPage == Pages.Login) MaterialPage(child: Login(changePage: setPage))
-                else if (currPage == Pages.Upload) MaterialPage(child: Text("yo"))
+                else if (currPage == Pages.Upload) MaterialPage(child: Upload())
                 else MaterialPage(child: Text("asd"))
               ],
               onPopPage: (route, result) {
