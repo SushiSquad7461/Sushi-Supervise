@@ -62,7 +62,11 @@ class _UploadState extends State<Upload> {
                     children: [
                       Text(result!.code!),
                       TextButton(
-                          onPressed: () => {setState(() => {result = null})}, child: Text("Reset"))
+                          onPressed: () {
+                                controller!.resumeCamera();
+                                setState(() => {result = null});
+                              },
+                          child: Text("Reset"))
                     ],
                   ),
                 ),
@@ -75,11 +79,13 @@ class _UploadState extends State<Upload> {
 
   void _onQRViewCreated(QRViewController controller) {
     this.controller = controller;
+    controller.resumeCamera();
     controller.scannedDataStream.listen((scanData) {
       setState(() {
         result = scanData;
 
         if (result != null) {
+          controller.pauseCamera();
           print("result is not niull");
         } else {
           print("no");
